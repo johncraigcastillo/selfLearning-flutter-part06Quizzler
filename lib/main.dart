@@ -1,6 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
+import 'quiz_brain.dart';
+
+QuizBrain quizBrain = QuizBrain();
 
 void main() => runApp(Quizzler());
 
@@ -14,7 +15,7 @@ class Quizzler extends StatelessWidget {
         backgroundColor: Colors.grey[800],
         body: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 3),
             child: QuizPage(),
           ),
         ),
@@ -23,10 +24,13 @@ class Quizzler extends StatelessWidget {
   }
 }
 
-class QuizPage extends StatelessWidget {
-  const QuizPage({
-    Key key,
-  }) : super(key: key);
+class QuizPage extends StatefulWidget {
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  List<Icon> scoreKeeper = [];
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +42,7 @@ class QuizPage extends StatelessWidget {
             flex: 4,
             child: Center(
               child: Text(
-                'This is where the question text goes.',
+                quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -61,7 +65,12 @@ class QuizPage extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  bool correctAnswer = quizBrain.getQuestionAns();
+                  setState(() {
+                    quizBrain.nextQuestion();
+                  });
+                },
               ),
             ),
           ),
@@ -79,9 +88,17 @@ class QuizPage extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  bool correctAnswer = quizBrain.getQuestionAns();
+                  setState(() {
+                    quizBrain.nextQuestion();
+                  });
+                },
               ),
             ),
+          ),
+          Row(
+            children: scoreKeeper,
           ),
         ],
       ),
