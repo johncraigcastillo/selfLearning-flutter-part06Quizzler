@@ -1,9 +1,11 @@
+///Question class that holds the question text and question answer
 class Question {
-  String questionText;
-  bool questionAnswer;
+  ///Constructor for the question and its answer
+  Question({this.questionText, this.questionAnswer});
 
-  Question(String q, bool a) {
-    questionText = q;
-    questionAnswer = a;
-  }
+  ///The question text
+  String questionText;
+
+  ///The question answer
+  bool questionAnswer;
 }
